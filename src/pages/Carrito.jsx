@@ -21,6 +21,7 @@ export default function Carrito() {
   // Modificar cantidades (+ o -)
   const cambiarCantidad = (id, delta) => {
     setItems((prevItems) =>
+ rama/juan
       prevItems
         .map((item) => {
           if (item.id === id) {
@@ -29,6 +30,15 @@ export default function Carrito() {
           }
           return item;
         })
+=======
+      prevItems.map((item) => {
+        if (item.id === id) {
+          const nuevaCantidad = item.cantidad + delta;
+          return nuevaCantidad > 0 ? { ...item, cantidad: nuevaCantidad } : item;
+        }
+        return item;
+      })
+ main
     );
   };
 
@@ -152,6 +162,7 @@ export default function Carrito() {
                   </span>
                 </div>
 
+ rama/juan
                 <button
                   type="button"
                   className="btn btn-success btn-lg w-100 fw-bold shadow-sm"
@@ -159,6 +170,15 @@ export default function Carrito() {
                 >
                   Finalizar compra
                 </button>
+=======
+                {/* Enlace directo al formulario de pago (COMPRAR -> COMPRAR) */}
+                <Link
+                  to="/checkout"
+                  className="btn btn-success btn-lg w-100 fw-bold shadow-sm text-decoration-none text-center"
+                >
+                  Finalizar compra
+                </Link>
+ main
               </div>
             </div>
 

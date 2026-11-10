@@ -12,11 +12,28 @@ import IniciarSesion from './pages/IniciarSesion';
 import RegistrarUsuario from './pages/RegistrarUsuario';
 import AdminDashboard from './pages/AdminDashboard';
 import AdminUsuarios from './pages/AdminUsuarios';
+rama/juan
+=======
+import AdminCategorias from './pages/AdminCategorias';
+import AdminReportes from './pages/AdminReportes'; // <-- Nuevo
+import AdminPerfil from './pages/AdminPerfil';     // <-- Nuevo
+import Categorias from './pages/Categorias';
+import Checkout from './pages/Checkout';
+import PagoExitoso from './pages/PagoExitoso';
+import PagoError from './pages/PagoError';
+import Ofertas from './pages/Ofertas';
+import AdminOrdenes from './pages/AdminOrdenes';
+import AdminProductos from './pages/AdminProductos';
+ main
 
 function App() {
   return (
     <BrowserRouter>
       <Routes>
+ rama/juan
+=======
+        {/*tienda */}
+ main
         <Route path="/" element={<Home />} />
         <Route path="/productos" element={<Productos />} />
         <Route path="/detalle_producto" element={<DetalleProducto />} />
@@ -25,9 +42,29 @@ function App() {
         <Route path="/contacto" element={<Contacto />} />
         <Route path="/carrito" element={<Carrito />} />
         <Route path="/iniciar_sesion" element={<IniciarSesion />} />
+ rama/juan
         <Route path="/registrar_usuario" element={<RegistrarUsuario />}/>
         <Route path="/admin" element={<AdminDashboard />} /> 
         <Route path="/admin/usuarios" element={<AdminUsuarios />} />
+=======
+        <Route path="/registrar_usuario" element={<RegistrarUsuario />} />
+        
+        {/* Rutas del Administrador */}
+        <Route path="/admin" element={<AdminDashboard />} /> 
+        <Route path="/admin/usuarios" element={<AdminUsuarios />} />
+        <Route path="/admin/categorias" element={<AdminCategorias />} />
+        <Route path="/admin/reportes" element={<AdminReportes />} />
+        <Route path="/admin/perfil" element={<AdminPerfil />} />
+        <Route path="/admin/ordenes" element={<AdminOrdenes />} />
+        <Route path="/admin/productos" element={<AdminProductos />} />
+
+        {/* Rutas Públicas */}
+        <Route path="/categorias" element={<Categorias />} />
+        <Route path="/checkout" element={<Checkout />} />
+        <Route path="/pago_exitoso" element={<PagoExitoso />} />
+        <Route path="/pago_error" element={<PagoError />} />
+        <Route path="/ofertas" element={<Ofertas />} />
+ main
       </Routes>
     </BrowserRouter>
   );

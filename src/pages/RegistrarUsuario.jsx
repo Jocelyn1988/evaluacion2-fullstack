@@ -1,5 +1,9 @@
 import React, { useState } from 'react';
+ rama/juan
 import { Link, useNavigate } from 'react-router-dom';
+=======
+import { useNavigate } from 'react-router-dom';
+ main
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
 import { datosChile } from '../data/chile';
@@ -29,7 +33,10 @@ export default function RegistrarUsuario() {
       [name]: value
     }));
 
+ rama/juan
     // Cargar dinámicamente las comunas al elegir la región
+=======
+ main
     if (name === 'region') {
       const comunas = datosChile[value] || [];
       setComunasDisponibles(comunas);
@@ -53,24 +60,34 @@ export default function RegistrarUsuario() {
     const telefono = formData.telefono.trim();
     const { region, comuna } = formData;
 
+ rama/juan
     // Validación 1: Coincidencia de correos
+=======
+ main
     if (correo !== confirmarCorreo) {
       setErrorMsg('Error: Los correos electrónicos no coinciden.');
       return;
     }
 
+ rama/juan
     // Validación 2: Coincidencia de contraseñas
+=======
+ main
     if (contrasena !== confirmarContrasena) {
       setErrorMsg('Error: Las contraseñas no coinciden.');
       return;
     }
 
+ rama/juan
     // Validación 3: Largo mínimo de contraseña (6 caracteres)
+=======
+ main
     if (contrasena.length < 6) {
       setErrorMsg('Error: La contraseña debe tener al menos 6 caracteres.');
       return;
     }
 
+ rama/juan
     // Validación 4: Formato de teléfono chileno (+56 9 XXXX XXXX o 9XXXXXXXX)
     const regexTelefono = /^(\+?56)?(\s?)(9\d{8})$/;
     if (!regexTelefono.test(telefono.replace(/\s+/g, ''))) {
@@ -79,12 +96,24 @@ export default function RegistrarUsuario() {
     }
 
     // Validación 5: Selección de Región y Comuna
+=======
+    const regexTelefono = /^(\+?56)?(\s?)(9\d{8})$/;
+    if (!regexTelefono.test(telefono.replace(/\s+/g, ''))) {
+      setErrorMsg('Error: Ingrese un número de teléfono chileno válido.');
+      return;
+    }
+
+ main
     if (!region || !comuna) {
       setErrorMsg('Error: Debes seleccionar una región y una comuna.');
       return;
     }
 
+ rama/juan
     // --- GUARDADO SINCRONIZADO EN LOCALSTORAGE PARA EL ADMIN ---
+=======
+    // Guardado en localStorage para actualizar la tabla de AdminUsuarios
+ main
     const usuariosGuardados = JSON.parse(localStorage.getItem('usuarios_registrados') || '[]');
     const fechaHoy = new Date().toISOString().split('T')[0];
     const nuevoId = Date.now();
@@ -99,15 +128,26 @@ export default function RegistrarUsuario() {
       region: region,
       comuna: comuna,
       telefono: telefono,
+ rama/juan
       status: "Pending",
       amount: "$0.00"
+=======
+      status: "Pendiente",
+      amount: "$0"
+ main
     };
 
     usuariosGuardados.unshift(nuevoRegistro);
     localStorage.setItem('usuarios_registrados', JSON.stringify(usuariosGuardados));
 
+ rama/juan
     alert('¡Registro exitoso! Bienvenido a Huerto Hogar.');
     navigate('/iniciar_sesion');
+=======
+    alert('¡Usuario registrado con éxito!');
+    // Redirecciona directamente a la tabla del panel de administración
+    navigate('/admin/usuarios');
+ main
   };
 
   return (
@@ -117,7 +157,11 @@ export default function RegistrarUsuario() {
       <main className="container my-5 py-4 d-flex justify-content-center align-items-center">
         <div className="card shadow-sm border-0 p-4 p-md-5 rounded-3 bg-white tarjeta-auth-registro">
           
+ rama/juan
           <h2 className="h4 fw-bold text-center mb-4 titulo-auth-verde">Registrar usuario</h2>
+=======
+          <h2 className="h4 fw-bold text-center mb-4 titulo-auth-verde">NUEVO USUARIO</h2>
+ main
 
           {errorMsg && (
             <div className="alert alert-danger py-2 small mb-4" role="alert">
@@ -126,7 +170,10 @@ export default function RegistrarUsuario() {
           )}
 
           <form onSubmit={handleSubmit}>
+ rama/juan
             {/* Nombre */}
+=======
+ main
             <div className="mb-3">
               <label htmlFor="nombre" className="form-label fw-semibold text-secondary small">
                 Nombre completo
@@ -143,7 +190,10 @@ export default function RegistrarUsuario() {
               />
             </div>
 
+ rama/juan
             {/* Correos */}
+=======
+ main
             <div className="row g-3 mb-3">
               <div className="col-12 col-md-6">
                 <label htmlFor="correo" className="form-label fw-semibold text-secondary small">
@@ -177,7 +227,10 @@ export default function RegistrarUsuario() {
               </div>
             </div>
 
+ rama/juan
             {/* Contraseñas */}
+=======
+ main
             <div className="row g-3 mb-3">
               <div className="col-12 col-md-6">
                 <label htmlFor="contrasena" className="form-label fw-semibold text-secondary small">
@@ -211,7 +264,10 @@ export default function RegistrarUsuario() {
               </div>
             </div>
 
+ rama/juan
             {/* Teléfono */}
+=======
+ main
             <div className="mb-3">
               <label htmlFor="telefono" className="form-label fw-semibold text-secondary small">
                 Teléfono
@@ -228,7 +284,10 @@ export default function RegistrarUsuario() {
               />
             </div>
 
+ rama/juan
             {/* Región y Comuna */}
+=======
+ main
             <div className="row g-3 mb-4">
               <div className="col-12 col-md-6">
                 <label htmlFor="region" className="form-label fw-semibold text-secondary small">
@@ -272,17 +331,29 @@ export default function RegistrarUsuario() {
               </div>
             </div>
 
+ rama/juan
             {/* Botones de acción */}
+=======
+ main
             <div className="d-flex gap-3">
               <button
                 type="button"
                 className="btn btn-outline-secondary w-50 fw-semibold"
+ rama/juan
                 onClick={() => navigate(-1)}
               >
                 Volver atrás
               </button>
               <button type="submit" className="btn btn-success w-50 fw-bold shadow-sm">
                 Registrar
+=======
+                onClick={() => navigate('/admin/usuarios')}
+              >
+                Volver
+              </button>
+              <button type="submit" className="btn btn-success w-50 fw-bold shadow-sm">
+                REGISTRAR
+ main
               </button>
             </div>
           </form>

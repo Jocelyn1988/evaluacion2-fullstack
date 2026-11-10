@@ -1,8 +1,16 @@
+ rama/juan
 import React, { useState } from 'react';
 import { useSearchParams, Link } from 'react-router-dom';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
 import { productos } from '../data/productos';
+=======
+import React, { useState, useEffect } from 'react';
+import { useSearchParams, Link } from 'react-router-dom';
+import Navbar from '../components/Navbar';
+import Footer from '../components/Footer';
+import { productos as productosIniciales } from '../data/productos';
+ main
 import '../css/detalle.css';
 
 export default function DetalleProducto() {
@@ -10,6 +18,7 @@ export default function DetalleProducto() {
   const idProducto = searchParams.get('id') || "FR001";
   const [cantidad, setCantidad] = useState(1);
   const [mensajeExito, setMensajeExito] = useState(false);
+ rama/juan
 
   // Busca el producto en la lista compartida
   const producto = productos.find((p) => p.id === idProducto) || productos[0];
@@ -18,6 +27,32 @@ export default function DetalleProducto() {
     // Almacena en localStorage para persistencia
     const carritoActual = JSON.parse(localStorage.getItem('carrito') || '[]');
     const existe = carritoActual.find((item) => item.id === producto.id);
+=======
+  const [producto, setProducto] = useState(null);
+
+  // Carga dinámica del catálogo desde localStorage
+  useEffect(() => {
+    const guardados = localStorage.getItem('productos_registrados');
+    let lista = productosIniciales;
+    
+    if (guardados) {
+      try {
+        lista = JSON.parse(guardados);
+      } catch (e) {
+        console.error("Error al cargar productos en DetalleProducto", e);
+      }
+    }
+
+    const encontrado = lista.find((p) => String(p.id) === String(idProducto)) || lista[0];
+    setProducto(encontrado);
+  }, [idProducto]);
+
+  const handleAgregar = () => {
+    if (!producto) return;
+
+    const carritoActual = JSON.parse(localStorage.getItem('carrito') || '[]');
+    const existe = carritoActual.find((item) => String(item.id) === String(producto.id));
+ main
 
     if (existe) {
       existe.cantidad += cantidad;
@@ -25,7 +60,11 @@ export default function DetalleProducto() {
       carritoActual.push({
         id: producto.id,
         nombre: producto.nombre,
+ rama/juan
         precio: producto.precioNumero,
+=======
+        precio: producto.precioNumero || 0,
+ main
         cantidad: cantidad,
         imagen: producto.imagen
       });
@@ -33,13 +72,34 @@ export default function DetalleProducto() {
 
     localStorage.setItem('carrito', JSON.stringify(carritoActual));
 
+ rama/juan
     // Muestra el mensaje visual de Bootstrap sin ventana emergente
+=======
+    // Notificar actualización al Navbar
+    window.dispatchEvent(new Event('carritoActualizado'));
+
+ main
     setMensajeExito(true);
     setTimeout(() => {
       setMensajeExito(false);
     }, 3500);
   };
 
+ rama/juan
+=======
+  if (!producto) {
+    return (
+      <>
+        <Navbar />
+        <main className="container my-5 text-center py-5">
+          <p className="text-muted">Cargando producto...</p>
+        </main>
+        <Footer />
+      </>
+    );
+  }
+
+ main
   return (
     <>
       <Navbar />
@@ -48,8 +108,19 @@ export default function DetalleProducto() {
         {/* Breadcrumbs dinámicos */}
         <nav aria-label="breadcrumb" className="mb-4">
           <ol className="breadcrumb">
+ rama/juan
             <li className="breadcrumb-item"><Link to="/" className="text-success text-decoration-none">Home</Link></li>
             <li className="breadcrumb-item"><Link to="/productos" className="text-success text-decoration-none">{producto.categoria}</Link></li>
+=======
+            <li className="breadcrumb-item">
+              <Link to="/" className="text-success text-decoration-none">Home</Link>
+            </li>
+            <li className="breadcrumb-item">
+              <Link to={`/productos?cat=${encodeURIComponent(producto.categoria)}`} className="text-success text-decoration-none">
+                {producto.categoria}
+              </Link>
+            </li>
+ main
             <li className="breadcrumb-item active" aria-current="page">{producto.nombre}</li>
           </ol>
         </nav>
@@ -61,6 +132,10 @@ export default function DetalleProducto() {
                 src={producto.imagen}
                 alt={producto.nombre}
                 className="img-fluid rounded-2 imagen-detalle-principal"
+ rama/juan
+=======
+                onError={(e) => { e.target.src = 'https://via.placeholder.com/400'; }}
+ main
               />
             </div>
           </div>
@@ -93,7 +168,11 @@ export default function DetalleProducto() {
               />
             </div>
 
+ rama/juan
             {/* Aviso de confirmación integrado de Bootstrap */}
+=======
+            {/* Aviso de confirmación de Bootstrap */}
+ main
             {mensajeExito && (
               <div className="alert alert-success alert-dismissible fade show mb-3 shadow-sm" role="alert">
                 ✅ Se agregaron <strong>{cantidad}</strong> unidad(es) de <strong>{producto.nombre}</strong> al carrito.

@@ -63,14 +63,32 @@ export default function Navbar() {
             </button>
 
             <div className="collapse navbar-collapse justify-content-between" id="menuPrincipal">
+ rama/juan
               <ul className="navbar-nav mx-auto my-3 my-md-0 gap-md-2 text-center">
+=======
+              <ul className="navbar-nav mx-auto my-3 my-md-0 gap-md-2 text-center align-items-center">
+ main
                 <li className="nav-item">
                   <Link to="/" className="nav-link-custom">Home</Link>
+                </li>
+                <li className="nav-item">
+ rama/juan
+                  <Link to="/productos" className="nav-link-custom">Productos</Link>
+                </li>
+                <li className="nav-item">
+=======
+                  <Link to="/categorias" className="nav-link-custom">Categorías</Link>
                 </li>
                 <li className="nav-item">
                   <Link to="/productos" className="nav-link-custom">Productos</Link>
                 </li>
                 <li className="nav-item">
+                  <Link to="/ofertas" className="nav-link-custom text-danger fw-bold">
+                    🔥 Ofertas
+                  </Link>
+                </li>
+                <li className="nav-item">
+ main
                   <Link to="/nosotros" className="nav-link-custom">Nosotros</Link>
                 </li>
                 <li className="nav-item">
